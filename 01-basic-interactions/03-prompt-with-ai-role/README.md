@@ -14,5 +14,5 @@ var messages = List.of(
     new SystemMessage("You are a Java expert."),
     new UserMessage(question)
 );
-String response = aiClient.generate(new Prompt(messages));
+String response = chatClient.prompt(new Prompt(messages));
 ```

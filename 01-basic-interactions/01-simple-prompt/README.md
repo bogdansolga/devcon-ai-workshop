@@ -9,5 +9,7 @@ The most basic form of LLM interaction. Demonstrates direct prompting without an
 
 ## Example Usage
 ```java
-String response = aiClient.generate("What is Spring Boot?");
+String response = chatClient.prompt("What is Spring Boot?")
+                            .call()
+                            .content();
 ```
