@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>ro.devcon.ai.workshop</groupId>
+    <artifactId>using-ai-in-java--from-zero-to-hero</artifactId>
+    <version>1.0.0</version>
+
+    <packaging>pom</packaging>
+
+    <description>The examples presented in the 'Using AI in Java - from zero to hero' DevCon workshop</description>
+    <contributors>
+        <contributor>
+            <roles>
+                <role>main author</role>
+            </roles>
+            <email>bogdan.solga@gmail.com</email>
+        </contributor>
+    </contributors>
+
+    <properties>
+        <java.version>21</java.version>
+        <spring-boot.version>3.3.5</spring-boot.version>
+        <spring-ai.version>1.0.0</spring-ai.version>
+    </properties>
+
+    <modules>
+        <module>basic-interactions</module>
+        <module>template-and-context-management</module>
+        <module>conversation-and-rag-integration</module>
+        <module>advanced-features</module>
+    </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>
