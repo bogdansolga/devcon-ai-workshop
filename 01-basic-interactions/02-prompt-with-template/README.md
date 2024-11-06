@@ -15,3 +15,6 @@ String response = chatClient.prompt(prompt)
                             .call()
                             .content();
 ```
+
+## Sequence Diagram
+![Sequence Diagram](02.png)

@@ -18,5 +18,8 @@ var functions = List.of(
     new FunctionDefinition("searchCode", "Search in codebase"),
     new FunctionDefinition("executeQuery", "Run database query")
 );
-String response = aiClient.generate(new Prompt(messages, functions));
+String response = chatClient.prompt(new Prompt(messages, functions));
 ```
+
+## Sequence Diagram
+![Sequence Diagram](09.png)

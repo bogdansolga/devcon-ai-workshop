@@ -16,3 +16,6 @@ var messages = List.of(
 );
 String response = chatClient.prompt(new Prompt(messages));
 ```
+
+## Sequence Diagram
+![Sequence Diagram](03.png)

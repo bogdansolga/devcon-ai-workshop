@@ -17,3 +17,6 @@ var prompt = new Prompt(messageHistory.getMessages());
 String response = aiClient.generate(prompt);
 messageHistory.add(new AssistantMessage(response));
 ```
+
+## Sequence Diagram
+![Sequence Diagram](08.png)

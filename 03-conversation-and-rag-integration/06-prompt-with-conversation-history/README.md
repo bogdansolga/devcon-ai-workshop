@@ -12,6 +12,9 @@ Maintains conversation context across multiple interactions.
 ```java
 messageHistory.add(new UserMessage(userInput));
 var prompt = new Prompt(messageHistory.getMessages());
-String response = aiClient.generate(prompt);
+String response = chatClient.generate(prompt);
 messageHistory.add(new AssistantMessage(response));
 ```
+
+## Sequence Diagram
+![Sequence Diagram](06.png)

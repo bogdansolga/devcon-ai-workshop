@@ -12,5 +12,8 @@ Uses external template files for more complex and maintainable prompt structures
 ```java
 var template = loadTemplate("prompts/code-review.st");
 template.add("code", sourceCode);
-String response = aiClient.generate(new Prompt(template.render()));
+String response = chatClient.prompt(new Prompt(template.render()));
 ```
+
+## Sequence Diagram
+![Sequence Diagram](04.png)

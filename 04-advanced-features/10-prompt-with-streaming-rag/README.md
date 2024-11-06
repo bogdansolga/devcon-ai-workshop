@@ -15,6 +15,10 @@ var messages = List.of(
     new SystemMessage("Answer using only the context."),
     new UserMessage(formatContext(relevantDocs, question))
 );
-return aiClient.generateStream(new Prompt(messages))
-    .map(ResponseChunk::getContent);
+return chatClient.prompt(new Prompt(messages))
+                 .stream()
+                 .content();
 ```
+
+## Sequence Diagram
+![Sequence Diagram](10.png)

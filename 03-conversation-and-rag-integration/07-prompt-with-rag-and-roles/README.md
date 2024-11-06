@@ -17,3 +17,6 @@ var messages = List.of(
 );
 String response = aiClient.generate(new Prompt(messages));
 ```
+
+## Sequence Diagram
+![Sequence Diagram](07.png)

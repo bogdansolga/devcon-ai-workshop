@@ -12,7 +12,7 @@ Implements multi-step reasoning processes with intermediate results.
 ```java
 // Step 1: Analyze question
 var analysisPrompt = new Prompt("Analyze this question: " + question);
-String analysis = aiClient.generate(analysisPrompt);
+String analysis = chatClient.prompt(analysisPrompt);
 
 // Step 2: Retrieve relevant context
 List<String> docs = vectorSearch.findSimilar(analysis, 2);
@@ -22,5 +22,8 @@ var finalPrompt = new Prompt(List.of(
     new SystemMessage("Use the analysis and context to answer."),
     new UserMessage(formatPrompt(analysis, docs, question))
 ));
-return aiClient.generate(finalPrompt);
+return chatClient.prompt(finalPrompt);
 ```
+
+## Sequence Diagram
+![Sequence Diagram](11.png)

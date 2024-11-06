@@ -13,3 +13,6 @@ String response = chatClient.prompt("What is Spring Boot?")
                             .call()
                             .content();
 ```
+
+## Sequence Diagram
+![Sequence Diagram](01.png)
