@@ -14,6 +14,9 @@
     <version>1.0.0</version>
 
     <dependencies>
-
+        <dependency>
+            <groupId>ro.devcon.ai.workshop</groupId>
+            <artifactId>common-config</artifactId>
+        </dependency>
     </dependencies>
 </project>
