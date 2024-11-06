@@ -37,6 +37,8 @@
 
         <spring-boot.version>3.3.5</spring-boot.version>
         <spring-ai.version>1.0.0-M3</spring-ai.version>
+
+        <test-containers.version>1.20.3</test-containers.version>
     </properties>
 
     <modules>
@@ -44,7 +46,9 @@
         <module>02-template-and-context-management</module>
         <module>03-conversation-and-rag-integration</module>
         <module>04-advanced-features</module>
+
         <module>common-config</module>
+        <module>common-db-config</module>
     </modules>
 
     <build>
@@ -80,6 +84,12 @@
             </dependency>
 
             <dependency>
+                <groupId>ro.devcon.ai.workshop</groupId>
+                <artifactId>common-db-config</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
                 <groupId>org.springframework.ai</groupId>
                 <artifactId>spring-ai-openai-spring-boot-starter</artifactId>
                 <version>${spring-ai.version}</version>
@@ -100,8 +110,14 @@
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
-                <version>${lombok}</version>
+                <version>${lombok.version}</version>
                 <optional>true</optional>
+            </dependency>
+
+            <dependency>
+                <groupId>org.postgresql</groupId>
+                <artifactId>postgresql</artifactId>
+                <version>${postgresql.version}</version>
             </dependency>
 
             <dependency>

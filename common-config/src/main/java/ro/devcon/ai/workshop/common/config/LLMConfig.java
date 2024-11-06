@@ -1,8 +1,13 @@
 package ro.devcon.ai.workshop.common.config;
 
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.document.MetadataMode;
+import org.springframework.ai.embedding.EmbeddingModel;
 import org.springframework.ai.openai.OpenAiChatModel;
+import org.springframework.ai.openai.OpenAiEmbeddingModel;
+import org.springframework.ai.openai.OpenAiEmbeddingOptions;
 import org.springframework.ai.openai.api.OpenAiApi;
+import org.springframework.ai.retry.RetryUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,5 +27,17 @@ public class LLMConfig {
     public ChatClient openAIChatClient() {
         return ChatClient.builder(openAIChatLanguageModel())
                          .build();
+    }
+
+    @Bean
+    public EmbeddingModel embeddingModel() {
+        return new OpenAiEmbeddingModel(
+                new OpenAiApi(openAiApiKey),
+                MetadataMode.EMBED,
+                OpenAiEmbeddingOptions.builder()
+                                      .withModel("text-embedding-ada-002")
+                                      .withUser("user")
+                                      .build(),
+                RetryUtils.DEFAULT_RETRY_TEMPLATE);
     }
 }

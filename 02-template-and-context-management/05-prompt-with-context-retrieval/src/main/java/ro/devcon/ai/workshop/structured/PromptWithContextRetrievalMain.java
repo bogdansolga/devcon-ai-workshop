@@ -1,12 +1,9 @@
 package ro.devcon.ai.workshop.structured;
 
+import org.springframework.context.annotation.ComponentScan;
+import ro.devcon.ai.workshop.common.config.BeansConfig;
+import ro.devcon.ai.workshop.common.service.VectorService;
 import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.ai.chat.messages.Message;
-import org.springframework.ai.chat.messages.SystemMessage;
-import org.springframework.ai.chat.messages.UserMessage;
-import org.springframework.ai.chat.prompt.Prompt;
-import org.springframework.ai.chat.prompt.PromptTemplate;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
@@ -14,15 +11,15 @@ import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
-import org.springframework.core.io.Resource;
-import ro.devcon.ai.workshop.common.config.LLMConfig;
+
+import java.util.List;
 
 @SpringBootApplication
-@Import(LLMConfig.class)
+@Import(BeansConfig.class)
+@ComponentScan(basePackages = {
+        "ro.devcon.ai.workshop.common"
+})
 public class PromptWithContextRetrievalMain {
-
-    @Value("classpath:/prompts/query-with-placeholders.st")
-    protected Resource firstQueryTemplate;
 
     public static void main(String[] args) {
         SpringApplication springApplication = new SpringApplication(PromptWithContextRetrievalMain.class);
@@ -32,33 +29,25 @@ public class PromptWithContextRetrievalMain {
     }
 
     @Bean
-    public ApplicationRunner runner(ChatClient chatClient) {
+    public ApplicationRunner runner(VectorService vectorService) {
         return args -> {
-            PromptTemplate promptTemplate = getAIPromptTemplate();
-            PromptTemplate funnyPromptTemplate = getFunnyPromptTemplate();
+            System.out.println("Storing some embeddings...");
 
-            System.out.println("Using a structured template, asking an explanation...");
-            System.out.println(chatClient.prompt(promptTemplate.create())
-                                         .call()
-                                         .content());
+            // save some embeddings
+            //vectorService.storeEmbedding("Spring Boot is a Java framework");
+            //vectorService.storeEmbedding("Python Django is a web framework");
+            //vectorService.storeEmbedding("Java helps in enterprise development");
+
+            System.out.println("Querying the vector database...");
+
+            // search for similar content
+            List<String> results = vectorService.findSimilar(
+                    "What Java frameworks exist?",
+                    2
+            );
+
+            System.out.println("Results:");
+            results.forEach(System.out::println);
         };
-    }
-
-    private PromptTemplate getAIPromptTemplate() {
-        return createPromptTemplate("AI integration", "medium",
-                "What are the main complexities in using LLMs?");
-    }
-
-    private PromptTemplate getFunnyPromptTemplate() {
-        return createPromptTemplate("standup comedy", "mediu",
-                "Cum explici AI pentru publicul tău, într-un mod cât mai comic?");
-    }
-
-    private PromptTemplate createPromptTemplate(String domain, String length, String question) {
-        final PromptTemplate promptTemplate = new PromptTemplate(firstQueryTemplate);
-        promptTemplate.add("prompt-domain", domain);
-        promptTemplate.add("answer-length", length);
-        promptTemplate.add("question", question);
-        return promptTemplate;
     }
 }

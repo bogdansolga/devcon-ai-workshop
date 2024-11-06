@@ -16,7 +16,7 @@
     <dependencies>
         <dependency>
             <groupId>ro.devcon.ai.workshop</groupId>
-            <artifactId>common-config</artifactId>
+            <artifactId>common-db-config</artifactId>
         </dependency>
     </dependencies>
 </project>
