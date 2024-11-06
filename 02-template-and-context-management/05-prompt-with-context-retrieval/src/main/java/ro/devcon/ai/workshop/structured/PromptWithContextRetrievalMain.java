@@ -1,6 +1,9 @@
 package ro.devcon.ai.workshop.structured;
 
+import org.springframework.ai.chat.prompt.PromptTemplate;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.core.io.Resource;
 import ro.devcon.ai.workshop.common.config.BeansConfig;
 import ro.devcon.ai.workshop.common.service.VectorService;
 import org.springframework.ai.chat.client.ChatClient;
@@ -21,6 +24,9 @@ import java.util.List;
 })
 public class PromptWithContextRetrievalMain {
 
+    @Value("classpath:/prompts/query-with-placeholders-and-context.st")
+    protected Resource queryTemplateWithContext;
+
     public static void main(String[] args) {
         SpringApplication springApplication = new SpringApplication(PromptWithContextRetrievalMain.class);
         springApplication.setWebApplicationType(WebApplicationType.NONE);
@@ -29,25 +35,43 @@ public class PromptWithContextRetrievalMain {
     }
 
     @Bean
-    public ApplicationRunner runner(VectorService vectorService) {
+    public ApplicationRunner runner(ChatClient chatClient, VectorService vectorService) {
         return args -> {
             System.out.println("Storing some embeddings...");
 
             // save some embeddings
-            //vectorService.storeEmbedding("Spring Boot is a Java framework");
-            //vectorService.storeEmbedding("Python Django is a web framework");
-            //vectorService.storeEmbedding("Java helps in enterprise development");
+            vectorService.storeEmbedding("Spring Boot is a Java framework");
+            vectorService.storeEmbedding("Python Django is a web framework");
+            vectorService.storeEmbedding("Java helps in enterprise development");
 
             System.out.println("Querying the vector database...");
 
             // search for similar content
             List<String> results = vectorService.findSimilar(
-                    "What Java frameworks exist?",
+                    "Common Java frameworks?",
                     2
             );
 
-            System.out.println("Results:");
-            results.forEach(System.out::println);
+            System.out.println("The database results:");
+            results.forEach(item -> System.out.println("\t" + item));
+
+            System.out.println("Querying the LLM...");
+            String question = "What modern Java frameworks can we use?";
+            final PromptTemplate promptTemplate = createPromptTemplate(results, "Java", "medium", question);
+
+            System.out.println(chatClient.prompt(promptTemplate.create())
+                                         .call()
+                                         .content());
         };
+    }
+
+    private PromptTemplate createPromptTemplate(List<String> context,
+                                                String domain, String length, String question) {
+        final PromptTemplate promptTemplate = new PromptTemplate(queryTemplateWithContext);
+        promptTemplate.add("answer-length", length);
+        promptTemplate.add("context", context);
+        promptTemplate.add("prompt-domain", domain);
+        promptTemplate.add("question", question);
+        return promptTemplate;
     }
 }

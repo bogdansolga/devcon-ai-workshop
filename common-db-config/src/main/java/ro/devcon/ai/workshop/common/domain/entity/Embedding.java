@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Type;
 
 import java.time.LocalDateTime;
 
@@ -27,6 +28,7 @@ public class Embedding {
     @Column(nullable = false)
     private String content;
 
+    @Type(PgVectorType.class)
     @Column(columnDefinition = "vector(1536)")
     private float[] embedding;
 

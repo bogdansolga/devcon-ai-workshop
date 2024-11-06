@@ -8,7 +8,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -34,11 +37,25 @@ public class VectorService {
                         .build();
     }
 
+    @Transactional
     public List<String> findSimilar(String query, int limit) {
-        float[] embeddings = embeddingModel.embed(query);
+        float[] embeddings = getEmbeddingsOrFromDatabase(query);
         return embeddingRepository.findMostSimilar(embeddings, limit)
                                   .stream()
                                   .map(Embedding::getContent)
                                   .collect(Collectors.toList());
+    }
+
+    private float[] getEmbeddingsOrFromDatabase(String query) {
+        final Optional<Embedding> optionalEmbedding = embeddingRepository.findByContent(query);
+        if (optionalEmbedding.isPresent()) {
+            return optionalEmbedding.get().getEmbedding();
+        }
+
+        storeEmbedding(query);
+
+        return embeddingRepository.findByContent(query)
+                                  .orElseThrow()
+                                  .getEmbedding();
     }
 }
