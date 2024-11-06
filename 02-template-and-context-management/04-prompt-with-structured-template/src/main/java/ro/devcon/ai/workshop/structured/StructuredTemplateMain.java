@@ -1,10 +1,6 @@
 package ro.devcon.ai.workshop.structured;
 
 import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.ai.chat.messages.Message;
-import org.springframework.ai.chat.messages.SystemMessage;
-import org.springframework.ai.chat.messages.UserMessage;
-import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.chat.prompt.PromptTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationRunner;
@@ -16,8 +12,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.io.Resource;
 import ro.devcon.ai.workshop.common.config.LLMConfig;
-
-import java.util.List;
 
 @SpringBootApplication
 @Import(LLMConfig.class)
