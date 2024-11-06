@@ -20,6 +20,10 @@ public class LLMConfig {
 
     @Bean
     public OpenAiChatModel openAIChatLanguageModel() {
+        if (openAiApiKey.length() < 10) {
+            System.out.println("Please configure the OpenAI API key before running the programs");
+            System.exit(100);
+        }
         return new OpenAiChatModel(new OpenAiApi(openAiApiKey));
     }
 

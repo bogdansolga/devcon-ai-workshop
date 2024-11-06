@@ -1,0 +1,12 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="[03] Prompt with AI roles" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <envs>
+      <env name="OPEN-AI.API-KEY" value="x" />
+    </envs>
+    <module name="03-prompt-with-ai-role" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="ro.devcon.ai.workshop.role.PromptWithRolesMain" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

@@ -1,0 +1,12 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="[02] Prompt with template" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <envs>
+      <env name="OPEN-AI.API-KEY" value="x" />
+    </envs>
+    <module name="02-prompt-with-template" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="ro.devcon.ai.workshop.template.PromptWithTemplateMain" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

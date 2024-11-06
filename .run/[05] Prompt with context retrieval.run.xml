@@ -1,0 +1,12 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="[05] Prompt with context retrieval" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <envs>
+      <env name="OPEN-AI.API-KEY" value="x" />
+    </envs>
+    <module name="05-prompt-with-context-retrieval" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="ro.devcon.ai.workshop.structured.PromptWithContextRetrievalMain" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
